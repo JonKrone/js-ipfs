@@ -149,6 +149,7 @@ exports.add = {
           otherwise: Joi.boolean().valid(false)
         }),
         'only-hash': Joi.boolean()
+        pin: Joi.boolean().default(true)
       })
       // TODO: Necessary until validate "recursive", "stream-channels" etc.
       .options({ allowUnknown: true })
