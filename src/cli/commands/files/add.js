@@ -203,7 +203,8 @@ module.exports = {
       cidVersion: argv.cidVersion,
       rawLeaves: argv.rawLeaves,
       onlyHash: argv.onlyHash,
-      hashAlg: argv.hash
+      hashAlg: argv.hash,
+      pin: argv.pin
     }
 
     // Temporary restriction on raw-leaves:

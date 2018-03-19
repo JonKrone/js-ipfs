@@ -148,7 +148,7 @@ exports.add = {
           then: Joi.boolean().valid(false).required(),
           otherwise: Joi.boolean().valid(false)
         }),
-        'only-hash': Joi.boolean()
+        'only-hash': Joi.boolean(),
         pin: Joi.boolean().default(true)
       })
       // TODO: Necessary until validate "recursive", "stream-channels" etc.
@@ -209,7 +209,8 @@ exports.add = {
       rawLeaves: request.query['raw-leaves'],
       progress: request.query.progress ? progressHandler : null,
       onlyHash: request.query['only-hash'],
-      hashAlg: request.query['hash']
+      hashAlg: request.query['hash'],
+      pin: request.query.pin
     }
 
     const aborter = abortable()
