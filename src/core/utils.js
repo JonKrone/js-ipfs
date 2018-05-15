@@ -3,7 +3,6 @@
 const multihashes = require('multihashes')
 const promisify = require('promisify-es6')
 const map = require('async/map')
-const isIPFS = require('is-ipfs')
 
 exports.OFFLINE_ERROR = 'This command must be run in online mode. Try running \'ipfs daemon\' first.'
 
@@ -20,21 +19,18 @@ exports.OFFLINE_ERROR = 'This command must be run in online mode. Try running \'
  * @throws on an invalid @param ipfsPath
  */
 function parseIpfsPath (ipfsPath) {
-  const matched = ipfsPath.match(/^(?:\/ipfs\/)?([^/]+(?:\/[^/]+)*)\/?$/)
   const invalidPathErr = new Error('invalid ipfs ref path')
+
+  const matched = ipfsPath.match(/^(?:\/ipfs\/)?([^/]+(?:\/[^/]+)*)\/?$/)
   if (!matched) {
     throw invalidPathErr
   }
 
   const [hash, ...links] = matched[1].split('/')
 
-  if (isIPFS.multihash(hash)) {
-    return {
-      hash: hash,
-      links: links
-    }
-  } else {
-    throw invalidPathErr
+  return {
+    hash: hash,
+    links: links
   }
 }
 
