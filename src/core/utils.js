@@ -1,5 +1,6 @@
 'use strict'
 
+const CID = require('cids')
 const multihashes = require('multihashes')
 const promisify = require('promisify-es6')
 const map = require('async/map')
@@ -28,9 +29,13 @@ function parseIpfsPath (ipfsPath) {
 
   const [hash, ...links] = matched[1].split('/')
 
-  return {
-    hash: hash,
-    links: links
+  try {
+    if (CID.isCID(new CID(hash))) {
+      return { hash, links }
+    }
+    throw invalidPathErr
+  } catch (err) {
+    throw invalidPathErr
   }
 }
 
